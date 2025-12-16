@@ -20,12 +20,8 @@ return new class extends Migration
             $table->string('address');
             //should be enum of types like city, country, landmark
             $table->string('type');
-            $table->timestamps();
-        });
-        Schema::create('image_location', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('image_id')->constrained()->onDelete('cascade');
-            $table->foreignId('location_id')->constrained()->onDelete('cascade');
+            //if it is added by normal user to their location on their private trip this location wont be shown in the global locations
+            $table->enum('status',['public','private']);
             $table->timestamps();
         });
         Schema::create('location_user', function (Blueprint $table) {
@@ -42,7 +38,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('location_user');
-        Schema::dropIfExists('image_location');
         Schema::dropIfExists('locations');
     }
 };

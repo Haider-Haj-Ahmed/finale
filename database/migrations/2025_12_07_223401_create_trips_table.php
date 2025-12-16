@@ -33,12 +33,6 @@ return new class extends Migration
             $table->string('notes')->nullable();
             $table->timestamps();
         });
-        Schema::create('image_trip', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('image_id')->constrained()->onDelete('cascade');
-            $table->foreignId('trip_id')->constrained()->onDelete('cascade');
-            $table->timestamps();
-        });
     }
 
     /**
@@ -46,7 +40,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('image_trip');
         Schema::dropIfExists('location_trip');
         Schema::dropIfExists('trips');
     }
